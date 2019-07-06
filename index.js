@@ -41,7 +41,11 @@ let contractSource = readContract(contractFile(contractsDir, contractName))
 let config = createConfig(contractSource)
 let jsonContract = compileContract(config)
 
-for (let contract in jsonContract.contracts[contractName]) {
-  // console.log(contract + ': ' + jsonContract.contracts[contractName][contract].evm.bytecode.object)
-  // console.log('C2: %o', jsonContract.contracts[contractName][contract])
+let dumpContract = function (contractName) {
+  for (var contract in jsonContract.contracts[contractName]) {
+    // console.log(contract + ': ' + jsonContract.contracts[contractName][contract].evm.bytecode.object)
+    console.log('C2: %o', jsonContract.contracts[contractName][contract])
+  }
 }
+
+// dumpContract(contractName)
