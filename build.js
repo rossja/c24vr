@@ -49,3 +49,4 @@ let dumpContract = function (contractName) {
 }
 
 // dumpContract(contractName)
+module.exports = jsonContract.contracts[contractName]
