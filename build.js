@@ -1,9 +1,10 @@
 const path = require('path')
 const fs = require('fs-extra')
 const solc = require('solc')
+const config = require('config')
 
-let contractsDir = 'contracts'
-let contractName = 'C2'
+let contractName = config.get('contract.name')
+let contractsDir = config.get('contract.dir')
 
 let contractFile = function (contractsDir, contractName) {
   return path.resolve(__dirname, contractsDir, contractName + '.sol')
@@ -14,7 +15,7 @@ let readContract = function (contractPath) {
 }
 
 let createConfig = function (contractSource) {
-  let config = {
+  let contractConfig = {
     language: 'Solidity',
     sources: {
       C2: {
@@ -29,7 +30,7 @@ let createConfig = function (contractSource) {
       }
     }
   }
-  return config
+  return contractConfig
 }
 
 let compileContract = function (config) {
@@ -38,8 +39,8 @@ let compileContract = function (config) {
 }
 
 let contractSource = readContract(contractFile(contractsDir, contractName))
-let config = createConfig(contractSource)
-let jsonContract = compileContract(config)
+let contractConfig = createConfig(contractSource)
+let jsonContract = compileContract(contractConfig)
 
 let dumpContract = function (contractName) {
   for (var contract in jsonContract.contracts[contractName]) {
@@ -49,4 +50,6 @@ let dumpContract = function (contractName) {
 }
 
 // dumpContract(contractName)
-module.exports = jsonContract.contracts[contractName]
+module.exports = jsonContract
+// module.exports = jsonContract.contracts[contractName]
+// module.exports = jsonContract.contracts['C2']['C2']

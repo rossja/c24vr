@@ -1,0 +1,6 @@
+{
+  contract: {
+    name: "C2",
+    dir: "contracts"
+  }
+}
